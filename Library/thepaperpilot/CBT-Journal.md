@@ -19,20 +19,20 @@ A set of utilities to implement a journal based on [Cognitive Behavioral Therapy
 > **warning** Warning
 > I'm not a therapist! This is really mostly a collection of tools I've seen various CBT journaling apps provide. A therapist can help you determine what things are beneficial for you specifically to track. There is a focus here on providing a bunch of tools or ideas to help you create the journaling system that works best for you; I'm not trying to impose any singular/universally “best” system.
 
-The core of this library is the [[Library/CBT-Journal/Journal Page|Journal Page template]]. It’s a template for making each day’s journal page, which you can then make a button for either inline (${widgets.commandButton(date.today(), "CBT Journal: Daily Note")}) somewhere or as an [[Library/Std/APIs/Action Button|action button]] in the navigation bar.
+The core of this library is the [[Library/thepaperpilot/CBT-Journal/Journal Page|Journal Page template]]. It’s a template for making each day’s journal page, which you can then make a button for either inline (${widgets.commandButton(date.today(), "CBT Journal: Daily Note")}) somewhere or as an [[Library/Std/APIs/Action Button|action button]] in the navigation bar.
 
-You may also want to create pages for check-ins, which can happen as often as you’d like including more than once per day. They get their own [[Library/CBT-Journal/Journal Check-In|Journal Check-In template]] which can be made with its own button (${widgets.commandButton("Check-In", "CBT Journal: Check-In")}) or action.
+You may also want to create pages for check-ins, which can happen as often as you’d like including more than once per day. They get their own [[Library/thepaperpilot/CBT-Journal/Journal Check-In|Journal Check-In template]] which can be made with its own button (${widgets.commandButton("Check-In", "CBT Journal: Check-In")}) or action.
 
 You’ll want to customize these templates to make it include the sections you want (including ones you make yourself!). The included sections are:
-- [[Library/CBT-Journal/Affirmations Section]]
-- [[Library/CBT-Journal/Check-Ins Section]]
-- [[Library/CBT-Journal/Cognitive Distortions Section]]
-- [[Library/CBT-Journal/Feelings Section]]
-- [[Library/CBT-Journal/Goals Section]]
-- [[Library/CBT-Journal/Navigation Section]]
-- [[Library/CBT-Journal/Pixel Tracker Section]]
-- [[Library/CBT-Journal/Temperature Section]]
-- [[Library/CBT-Journal/Tracker Section]]
+- [[Library/thepaperpilot/CBT-Journal/Affirmations Section]]
+- [[Library/thepaperpilot/CBT-Journal/Check-Ins Section]]
+- [[Library/thepaperpilot/CBT-Journal/Cognitive Distortions Section]]
+- [[Library/thepaperpilot/CBT-Journal/Feelings Section]]
+- [[Library/thepaperpilot/CBT-Journal/Goals Section]]
+- [[Library/thepaperpilot/CBT-Journal/Navigation Section]]
+- [[Library/thepaperpilot/CBT-Journal/Pixel Tracker Section]]
+- [[Library/thepaperpilot/CBT-Journal/Temperature Section]]
+- [[Library/thepaperpilot/CBT-Journal/Tracker Section]]
 
 > **tip** Tip
 > In addition to section widgets, consider adding any prompts you'd like to your page template. For example, if you're going for gratitude journaling, you could add a header and numbered list for “3 things you're grateful for today”.
