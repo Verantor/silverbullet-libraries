@@ -4,7 +4,6 @@ ${cbt_journal.navigation_section("^Journal/%d+%-%d+%-%d+$")}
 
 ## Implementation
 
-```space-lua
 -- priority: 10
 
 function cbt_journal.navigation_section(pattern)
@@ -61,7 +60,6 @@ end
 slashcommand.define {
   name = "Navigation Section",
   run = function()
-    editor.insertAtCursor("${cbt_journal.navigation_section(\"^Journal/%d+%.%d+%.%d+$\")}\n", false, true)
+    editor.insertAtCursor("${cbt_journal.navigation_section(\"^Journal/%d+%-%d+%-%d+$\")}\n", false, true)
   end
 }
-```

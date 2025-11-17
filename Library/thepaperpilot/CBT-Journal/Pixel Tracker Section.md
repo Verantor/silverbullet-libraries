@@ -1,4 +1,6 @@
-The pixel tracker section shows an array of pixels, each representing a day, where the color of the pixel represents some information about that day. For example, it could appear “filled in” based on a hobby being complete, or perhaps a red/orange/green system based on the amount of exercise or water drank that happened that day. It could also be used for mood tracking, with different colors representing different moods, and so on. The goal of this section is to be able to look at trends and streaks over a long time at a glance.
+The pixel tracker section shows an array of pixels, each representing a day, where the color of the pixel represents some information about that day.
+
+For example, it could appear “filled in” based on a hobby being complete, or perhaps a red/orange/green system based on the amount of exercise or water drank that happened that day. It could also be used for mood tracking, with different colors representing different moods, and so on. The goal of this section is to be able to look at trends and streaks over a long time at a glance.
 
 To make this easier to use, there are three different types of pixel trackers you can use: one for “filling in” pixels (“boolean”), one for mapping values to different colors (e.g. moods) (“map”), and one that takes a function mapping the page itself to the color to display (“custom”).
 
@@ -20,7 +22,7 @@ ${cbt_journal.pixel_tracker_section(function (page)
     end, "red")}
 
 > **warning** Warning
-> As written, journal entries are expected to follow the naming scheme of `{PREFIX}/YYYY-MM-DD`, where prefix can be passed in as the third parameter and defaults to “Journal”. If you name your journal entries in a different format, you’ll need to update this code appropriately.
+> As written, journal entries are expected to follow the naming scheme of `{PREFIX}/dd-mm-YYYY`, where prefix can be passed in as the third parameter and defaults to “Journal”. If you name your journal entries in a different format, you’ll need to update this code appropriately.
 
 ## Implementation
 
@@ -49,7 +51,7 @@ function cbt_journal.pixel_tracker_section(colorFunc, defaultColor, days, prefix
 
   local pages = query[[
     from index.tag "page"
-    where _.name:match("^" .. prefix .. "/%d+%.%d+%.%d+$")
+    where _.name:match("^" .. prefix .. "/%d+%-%d+%-%d+$")
     order by _.created desc
     limit days
   ]];
@@ -64,7 +66,7 @@ function cbt_journal.pixel_tracker_section(colorFunc, defaultColor, days, prefix
   local ordered_days = {}
   for i = days - 1, 0, -1 do
     local t = today - (i * 86400)
-    local date_str = os.date("%d.%m.%Y", t)
+    local date_str = os.date("%d-%m-%Y", t)
     local color = page_lookup[date_str] or defaultColor
     table.insert(ordered_days, { date = date_str, color = color, weekday = tonumber(os.date("%w", t)) + 1 })
   end
