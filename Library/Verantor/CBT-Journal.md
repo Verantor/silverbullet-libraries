@@ -1,5 +1,6 @@
 ---
 description: "Collection of utilites for journaling based on CBT and BuJo"
+name: Library/Verantor/CBT-Journal
 tags: meta/library
 files:
 - Affirmations Section.md
