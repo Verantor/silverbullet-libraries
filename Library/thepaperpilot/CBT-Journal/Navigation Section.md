@@ -21,7 +21,6 @@ function cbt_journal.navigation_section(pattern)
     return ""
   end
 
-  -- Find current index
   local currentIndex
   for i, p in ipairs(pages) do
     if p.name == editor.getCurrentPage() then
@@ -34,11 +33,9 @@ function cbt_journal.navigation_section(pattern)
     return ""
   end
 
-  -- Get previous and next
   local nextp = pages[currentIndex - 1] and pages[currentIndex - 1].name
   local prev = pages[currentIndex + 1] and pages[currentIndex + 1].name
 
-  -- Render buttons
   local buttons = {}
 
   if prev then
@@ -64,7 +61,7 @@ end
 slashcommand.define {
   name = "Navigation Section",
   run = function()
-    editor.insertAtCursor("${cbt_journal.navigation_section(\"^Journal/%d+%-%d+%-%d+$\")}\n", false, true)
+    editor.insertAtCursor("${cbt_journal.navigation_section(\"^Journal/%d+%.%d+%.%d+$\")}\n", false, true)
   end
 }
 ```

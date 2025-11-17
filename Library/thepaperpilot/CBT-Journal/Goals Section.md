@@ -11,10 +11,9 @@ ${cbt_journal.goals_for_day()}
 -- priority: 10
 
 function cbt_journal.goals_for_day(day)
-  day = day or date.today()
-
+  day = day or os.date('%d.%m.%Y')
   return template.each(query[[from index.tag "task"
-  where not _.done and _.page.startsWith("Journal/" .. day)
+  where not _.done and _.page:startsWith("Journal/" .. day)
   order by ref desc]], templates.taskItem)
 end
 

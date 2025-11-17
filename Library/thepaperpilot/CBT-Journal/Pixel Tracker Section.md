@@ -49,11 +49,11 @@ function cbt_journal.pixel_tracker_section(colorFunc, defaultColor, days, prefix
 
   local pages = query[[
     from index.tag "page"
-    where _.name:match("^" .. prefix .. "/%d+%-%d+%-%d+$")
+    where _.name:match("^" .. prefix .. "/%d+%.%d+%.%d+$")
     order by _.created desc
     limit days
   ]];
-  
+
   local page_lookup = {}
   for _, page in ipairs(pages) do
     local date_str = page.name:gsub("^" .. prefix .. "/", "")
@@ -63,8 +63,8 @@ function cbt_journal.pixel_tracker_section(colorFunc, defaultColor, days, prefix
   local today = os.time()
   local ordered_days = {}
   for i = days - 1, 0, -1 do
-    local t = today - (i * 24 * 60 * 60)
-    local date_str = os.date("%Y-%m-%d", t)
+    local t = today - (i * 86400)
+    local date_str = os.date("%d.%m.%Y", t)
     local color = page_lookup[date_str] or defaultColor
     table.insert(ordered_days, { date = date_str, color = color, weekday = tonumber(os.date("%w", t)) + 1 })
   end
@@ -73,31 +73,26 @@ function cbt_journal.pixel_tracker_section(colorFunc, defaultColor, days, prefix
   for _, day in ipairs(ordered_days) do
     table.insert(weekdays[day.weekday], day)
   end
-  
+
   local day_initials = { "S", "M", "T", "W", "T", "F", "S" }
   local labels = {}
-  for i, initial in ipairs(day_initials) do
-    table.insert(labels, dom.div {
-      initial
-    })
+  for _, initial in ipairs(day_initials) do
+    table.insert(labels, dom.div { initial })
   end
-  
+
   local rows = {}
   for i, day_data in ipairs(weekdays) do
     local cells = {}
-
     for _, day in ipairs(day_data) do
       table.insert(cells, dom.div({
         class = "cell",
-        style = "--color: " .. day.color,
+        style = "--color:" .. day.color,
         title = day.date
       }))
     end
-
     if (tonumber(os.date("%w")) + 1 < i) then
       table.insert(cells, dom.div({ class = "placeholder" }))
     end
-
     table.insert(rows, dom.div({
       class = "cells",
       table.unpack(cells)
@@ -111,20 +106,8 @@ function cbt_journal.pixel_tracker_section(colorFunc, defaultColor, days, prefix
     if day.weekday == 7 then
       week_index = week_index + 1
     end
-
-    local month_num = tonumber(day.date:sub(6,7))
-    if ordered_days[i - 1] and month_num ~= tonumber(ordered_days[i - 1].date:sub(6,7)) then
-      local month_name = os.date("%b", os.time({
-        year = tonumber(day.date:sub(1,4)),
-        month = month_num,
-        day = 1
-      }))
-      local offset_expr = string.format("calc(100% - (%d * 1lh) + var(--gap))", week_index)
-      table.insert(month_labels, dom.div({
-        style = "left: " .. offset_expr,
-        month_name
-      }))
-    end
+    local month_num = tonumber(day.date:sub(4,5))
+    -- (month label calc can be implemented here if desired)
   end
 
   table.insert(rows, dom.div({
@@ -134,14 +117,8 @@ function cbt_journal.pixel_tracker_section(colorFunc, defaultColor, days, prefix
 
   return widget.html(dom.div({
     class = "pixel-tracker",
-    dom.div {
-      class = "labels",
-      table.unpack(labels)
-    },
-    dom.div {
-      class = "rows",
-      table.unpack(rows)
-    }
+    dom.div({ class = "labels", table.unpack(labels) }),
+    dom.div({ class = "rows", table.unpack(rows) })
   }))
 end
 ```

@@ -25,7 +25,7 @@ end
 slashcommand.define {
   name = "Check-Ins Section",
   run = function()
-    editor.insertAtCursor("${cbt_journal.checkins_section()}\n", false, true)
+    editor.insertAtCursor("${cbt_journal.checkins_section(\"Journal/${os.date('%d.%m.%Y')} \")}\n", false, true)
   end
 }
 ```
